@@ -1,7 +1,5 @@
 #include "../includes/computor.h"
 
-
-
 double		get_value(t_poly *p, char c)
 {
 	int i = 0;
@@ -58,42 +56,37 @@ void	deg_two_sol(t_poly *p)
 	double sol;
 	double sol1;
 	double sol2;
-	printf("\na = %f, b = %f, c = %f\n",p->a, p->b,p->c);
 	p->delta = (p->b * p->b) - 4 * p->a * p->c;
-	printf("%f\n", p->delta);
+	printf("\nDiscriminant = %f\n", p->delta);
 	if (p->delta < 0)
-		printf("%s\n", "No solutions");
+		printf("%s\n", "Discriminant is stricly negative, there is no solutions");
 	else if (p->delta == 0)
 	{
 		sol = -((double)p->b / (2 * (double)p->a));
-		printf("%s\n", "one solution");
-		printf("sol = \n%f", sol);
+		printf("%s\n", "Discriminant is equal to Zero, there is only one solution");
+		printf("solution = \n%f", sol);
 	}
 	else if (p->delta > 0)
 	{
 		sol1 = -((p->b + sqrt(p->delta) ) / (2 * p->a));
 		sol2 = -((p->b - sqrt(p->delta) ) / (2 * p->a));
-		printf("%s\n", "two solutions");
-		printf("\nsol1 = %f\n", sol1);
-		printf("\nsol2 = %f\n", sol2);
+		printf("%s\n", "Discriminant is strictly positive , there is two solutions");
+		printf("\nsolution 1 = %f\n", sol1);
+		printf("\nsolution 2 = %f\n", sol2);
 	}
 }
-
 
 void	deg_one_sol(t_poly *p)
 {
 	double sol;
-	printf("\na = %f, b = %f\n",p->a, p->b);
 	sol = - (p->b / p->a);
-	printf("\nsol = %f\n", sol);
+	printf("\nIt has only one solution.= %f\n", sol);
+	printf("\nsolution = %f\n", sol);
 }
 
-
-
-void	decompose(t_poly *p)
+void	solve(t_poly *p)
 {
-	get_degree(p);
-	printf("\ndegree = %d\n", p->deg);
+	printf("\nPolynomial Degree : %d\n", p->deg);
 	if (p->deg == 2)
 	{
 		p->a = get_value(p, '2');
@@ -113,5 +106,6 @@ void	decompose(t_poly *p)
 
 void	computor(t_poly *p)
 {
-	decompose(p);
+	simplify(p);
+//	solve(p);
 }

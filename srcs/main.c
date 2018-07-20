@@ -11,6 +11,9 @@ void	init_struct(t_poly *p, char *str)
 	p->sol1 = 0;
 	p->sol2 = 0;
 	p->delta = 0;
+	p->x = NULL;
+	p->cstr = NULL;
+	p->exp = (int *)malloc(sizeof(int) * 3);
 }
 
 int		main(int argc, char **argv)

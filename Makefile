@@ -1,8 +1,8 @@
 NAME = ComputorV1
 
-SRC = ./srcs/main.c ./srcs/computor.c ./srcs/lib.c ./srcs/ft_atof.c
+SRC = ./srcs/main.c ./srcs/computor.c ./srcs/lib.c ./srcs/ft_atof.c ./srcs/simplify.c
 
-OBJ = ./main.o ./computor.o ./lib.o ./ft_atof.o
+OBJ = ./main.o ./computor.o ./lib.o ./ft_atof.o ./simplify.o
 
 HEADER = ./
 
