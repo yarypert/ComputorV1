@@ -20,7 +20,10 @@ typedef struct		s_poly
 	double		delta;
 	char		**x;
 	int			*exp;
+	char		*sign;
 	int			*len;
+	int			cut;
+	char		*str_clean;
 }					t_poly;
 
 double			ft_atof(const char *str);

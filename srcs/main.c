@@ -13,6 +13,7 @@ void	init_struct(t_poly *p, char *str)
 	p->delta = 0;
 	p->x = NULL;
 	p->cstr = NULL;
+	p->cut = 0;
 	p->exp = (int *)malloc(sizeof(int) * 3);
 }
 
