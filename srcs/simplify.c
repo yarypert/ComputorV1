@@ -152,26 +152,105 @@ double	compute_value(t_poly *p, int i)
 	return (ret);
 }
 
+char	*refill(char *tmp, char *str)
+{
+	int i = 0;
+	int j = 0;
+
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != '\v' && str[i] != '\f' && str[i] != '\r')
+		{
+			if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/' || str[i] == '=')
+			{
+				tmp[j] = ' ';
+				tmp[j + 1] = str[i];
+				tmp[j + 2] = ' ';
+				j = j + 2;
+			}
+			else if (str[i] != '+' || str[i] != '-' || str[i] != '*' || str[i] != '/' || str[i] != '=')
+				tmp[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	return (tmp);
+}
+
+
+char	*format(char *str)
+{
+	int i = 0;
+	int count = 0;
+	char *tmp;
+	while (str[i])
+	{
+		if (str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/' || str[i] == '=')
+			count = count + 2;
+		count++;
+		i++;
+	}
+	tmp = (char *)malloc(sizeof(char) * count + 1);
+	str = refill(tmp, str);
+	return (str);
+}
+
+void	epur(t_poly *p)
+{
+	int i = 0;
+	int j = 0;
+	char *tmp = p->str_clean;
+	while (p->str_clean[i])
+	{
+		if (p->str_clean[i] != ' ' && p->str_clean[i] != '\t' && p->str_clean[i] != '\n' && p->str_clean[i] != '\v' && p->str_clean[i] != '\f' &&p->str_clean[i] != '\r')
+		{
+			if (i == 0 && p->str_clean[i] == '+')
+				;
+			else
+			{
+				tmp[j] = p->str_clean[i];
+				j++;
+			}
+		}
+		i++;
+	}
+	tmp[j] = '\0';
+	p->str_clean = format(tmp);
+}
+
 void	cat_str(t_poly *p)
 {
-	char *a;
-	char *b;
-	char *c;
-	
+	int i = 0;
+	char *a = (char *)malloc(sizeof(char) * 8192);
+	char *b = (char *)malloc(sizeof(char) * 8192);
+	char *c = (char *)malloc(sizeof(char) * 8192);
+	while (i <= 8192)
+	{
+		a[i] = '\0';
+		b[i] = '\0';
+		c[i] = '\0';
+		i++;
+	}
 	if (p->a >= 0)
-		sprintf(a, "+ %f", p->a);
+		sprintf(a, "+ %g", p->a);
 	else if (p->a < 0)
-		sprintf(a, "- %f", p->a);
+		sprintf(a, "%g", p->a);
+	else if (p->a == 0)
+		sprintf(a, " ");
 	if (p->b >= 0)
-		sprintf(b, "+ %f", p->b);
+		sprintf(b, "+ %g", p->b);
 	else if (p->b < 0)
-		sprintf(b, "- %f", p->b);
+		sprintf(b, "%g", p->b);
+	else if (p->b == 0)
+		sprintf(b, " ");
 	if (p->c >= 0)
-		sprintf(c, "+ %f", p->c);
+		sprintf(c, "+ %g", p->c);
 	else if (p->c < 0)
-		sprintf(c, "- %f", p->c);
-	sprintf(p->str_clean, "%s * X^2 %s * X^1 %s * X^0 = 0", a,b,c);
-	printf("%s\n", p->str_clean);
+		sprintf(c, "%g", p->c);
+	else if (p->c == 0)
+		sprintf(c, " ");
+	sprintf(p->str_clean, "%s * X^0 %s * X^1 %s * X^2 = 0", a, b, c);
+	epur(p);
 }
 
 
@@ -229,8 +308,9 @@ void	simplify(t_poly *p)
 		fill_x(p, i);
 		create_sign(p, i);
 		p->x[i][p->len[i]] = '\0';
-		printf("%s\n", p->x[i]);
 		i++;
 	}
 	add_exp(p);
+	p->e = p->str_clean;
+	printf("Simplify Expression : %s\n", p->e);
 }

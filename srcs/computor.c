@@ -57,22 +57,22 @@ void	deg_two_sol(t_poly *p)
 	double sol1;
 	double sol2;
 	p->delta = (p->b * p->b) - 4 * p->a * p->c;
-	printf("\nDiscriminant = %f\n", p->delta);
+	printf("\nDiscriminant = %g\n", p->delta);
 	if (p->delta < 0)
 		printf("%s\n", "Discriminant is stricly negative, there is no solutions");
 	else if (p->delta == 0)
 	{
 		sol = -((double)p->b / (2 * (double)p->a));
 		printf("%s\n", "Discriminant is equal to Zero, there is only one solution");
-		printf("solution = \n%f", sol);
+		printf("solution = \n%g", sol);
 	}
 	else if (p->delta > 0)
 	{
 		sol1 = -((p->b + sqrt(p->delta) ) / (2 * p->a));
 		sol2 = -((p->b - sqrt(p->delta) ) / (2 * p->a));
-		printf("%s\n", "Discriminant is strictly positive , there is two solutions");
-		printf("\nsolution 1 = %f\n", sol1);
-		printf("\nsolution 2 = %f\n", sol2);
+		printf("%s\n", "Discriminant is strictly positive , there are two solutions");
+		printf("\nsolution 1 = %g\n", sol1);
+		printf("\nsolution 2 = %g\n", sol2);
 	}
 }
 
@@ -80,8 +80,8 @@ void	deg_one_sol(t_poly *p)
 {
 	double sol;
 	sol = - (p->b / p->a);
-	printf("\nIt has only one solution.= %f\n", sol);
-	printf("\nsolution = %f\n", sol);
+	printf("\nIt has only one solution.= %g\n", sol);
+	printf("\nsolution = %g\n", sol);
 }
 
 void	solve(t_poly *p)
@@ -107,5 +107,5 @@ void	solve(t_poly *p)
 void	computor(t_poly *p)
 {
 	simplify(p);
-//	solve(p);
+	solve(p);
 }
